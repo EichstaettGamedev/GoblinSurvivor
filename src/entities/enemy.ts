@@ -15,6 +15,7 @@ export class Enemy extends Physics.Arcade.Sprite {
         scene.enemyGroup?.add(this);
         this.setCircle(16,16,16);
         this.setBounce(1, 1);
+        this.setCollideWorldBounds(true);
     }
 
     damage(v:number) {

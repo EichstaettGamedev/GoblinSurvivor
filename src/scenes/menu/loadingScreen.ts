@@ -105,7 +105,7 @@ export class LoadingScreenScene extends Scene {
         this.load.image('player', 'unpacked_gfx/player.png');
         this.load.image('enemy', 'unpacked_gfx/enemy.png');
         this.load.image('bullet', 'unpacked_gfx/bullet.png');
-        this.load.image('bg', 'unpacked_gfx/background.jpg');
+        this.load.image('bg', 'unpacked_gfx/background.png');
 
     }
 

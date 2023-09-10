@@ -20,6 +20,9 @@ const animation_frames = (frame: string, frames: number | number[]) => {
     return ret;
 };
 
+const worldWidth = 8192;
+const worldHeight = 8192;
+
 export type KeyMap = {
     Up: Phaser.Input.Keyboard.Key;
     Left: Phaser.Input.Keyboard.Key;
@@ -70,15 +73,19 @@ export class GameScene extends Scene {
         };
         this.physics.add.overlap(this.playerBullets, this.enemyGroup, handler);
         this.physics.add.overlap(this.playerGroup, this.enemyGroup, handler);
-        this.physics.collide(this.enemyGroup, this.enemyGroup);
+        this.physics.add.collider(this.enemyGroup, this.enemyGroup);
+        this.physics.add.collider(this.playerGroup, this.enemyGroup);
 
-        this.bg = this.add.image(1280/2, 720/2, 'bg');
+        this.bg = this.add.tileSprite(0, 0, worldWidth, worldHeight, 'bg');
         this.player = new Player(this);
         for(let i = 0;i < 50; i++){
             const x = Math.random() * 1280;
             const y = Math.random() * 720;
             new Enemy(this, x, y);
         }
+
+        this.cameras.main.setBounds(-1000, -1000, 12800, 7200);
+        this.cameras.main.startFollow(this.player, false, 0.05, 0.05);
 
         const ui = this.scene.get('UIScene') as UIScene;
         ui.events.emit('reset');
@@ -90,7 +97,6 @@ export class GameScene extends Scene {
         this.gameOverActive = false;
         this.gameTicks = 0;
 
-        this.cameras.main.setBounds(0, 0, 1280, 720);
     }
 
     update(time: number, delta: number) {
