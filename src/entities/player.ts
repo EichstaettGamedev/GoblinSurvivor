@@ -82,6 +82,8 @@ export class Player extends Physics.Arcade.Sprite {
                 this.scene.add.existing(new Bullet(gs, this.x, this.y, d.x*100, d.y*100, ttl));
             }
         }
+
+        this.depth = this.y + this.height/2;
     }
 
     onCollide(other: any){

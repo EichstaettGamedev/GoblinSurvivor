@@ -68,5 +68,7 @@ export class Enemy extends Physics.Arcade.Sprite {
             vy = this.body.velocity.y * 0.9 + vy * 0.1;
             this.setVelocity(vx,vy);
         }
+
+        this.depth = this.y + this.height/2;
     }
 }

@@ -45,7 +45,7 @@ export class GameScene extends Scene {
     gameTicks = 0;
     score = 0;
 
-    bg?: Phaser.GameObjects.Image;
+    bg?: Phaser.GameObjects.TileSprite;
     player?: Player;
     playerGroup?: Phaser.GameObjects.Group;
     enemyGroup?: Phaser.GameObjects.Group;
@@ -77,6 +77,7 @@ export class GameScene extends Scene {
         this.physics.add.collider(this.playerGroup, this.enemyGroup);
 
         this.bg = this.add.tileSprite(0, 0, worldWidth, worldHeight, 'bg');
+        this.bg.setDepth(-65535);
         this.player = new Player(this);
         for(let i = 0;i < 50; i++){
             const x = Math.random() * 1280;

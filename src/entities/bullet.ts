@@ -26,6 +26,7 @@ export class Bullet extends Physics.Arcade.Sprite {
         if(this.ttl <= 0){
             this.die();
         }
+        this.depth = this.y + this.height/2;
     }
 
     onCollide(other: any) {
