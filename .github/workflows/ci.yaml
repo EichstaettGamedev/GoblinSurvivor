@@ -39,7 +39,7 @@ jobs:
           path: dist
 
   deploy:
-    needs: build
+    needs: [build, check]
     runs-on: ubuntu-latest
     permissions:
       pages: write      # to deploy to Pages

@@ -1,12 +1,12 @@
 import options from '../../options';
 import { Scene } from 'phaser';
 
-const introHTML = `<h1>Vite / Phaser / TypeScript starter template</h1>
+const introHTML = `<h1>Vampire Survivors Clone</h1>
 <br/>
-<p>Something I've built for myself to jumpstart games developed for jams, feel free to use it howevery you want.</p>`;
+<p>Probably needs a better title, but this has to suffice for now</p>`;
 
 const gitHubLink =
-    'https://github.com/Melchizedek6809/vite-phaser-typescript-starter';
+    'https://github.com/EichstaettGamedev/GoblinSurvivor';
 const phaserLink = 'https://phaser.io/';
 
 export class MainMenuScene extends Scene {

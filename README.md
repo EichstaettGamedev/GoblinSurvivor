@@ -1,6 +1,8 @@
-# PhaserJS + Typescript
+# Vampire Survivors Clone
 
-A simple starter template/example for PhaserJS and TypeScript.
+Just something to play around with, trying to add coop multiplayer in the future.
+
+## [Play the newest Version here](https://eichstaettgamedev.github.io/GoblinSurvivor/)
 
 ## Requirements
 - Node JS (v18+) with NPM
