@@ -1,11 +1,14 @@
 import { Physics } from 'phaser';
 import type { GameScene } from '../scenes/game/gameScene';
+import { Coin } from './coin';
 
 export class Enemy extends Physics.Arcade.Sprite {
     scene: GameScene;
     health = 20;
     lastDamageDealt = 0;
     damageCooldown = 100;
+    direction = 0;
+
 
     constructor(scene: GameScene, x:number, y:number) {
         super(scene, x, y, 'enemy');
@@ -25,6 +28,7 @@ export class Enemy extends Physics.Arcade.Sprite {
     die() {
         const gs = this.scene as GameScene;
         gs.enemyGroup?.remove(this);
+        new Coin(gs, this.x, this.y, 1);
         this.destroy();
     }
 
@@ -34,6 +38,12 @@ export class Enemy extends Physics.Arcade.Sprite {
             return 10;
         }
         return 0;
+    }
+
+    private setAnimationFrame(){
+        if(!this.scene){return;}
+        const fc = ((this.scene.time.now / 250)|0) % 3;
+        this.setFrame(this.direction * 3 + fc);
     }
 
     preUpdate(time: number, delta: number) {
@@ -59,9 +69,25 @@ export class Enemy extends Physics.Arcade.Sprite {
         } else if(gs.player.y > this.y){
             vy++;
         }
+        
+        const dx = gs.player.x - this.x;
+        const dy = gs.player.y - this.y;
+        if(Math.abs(dx) > Math.abs(dy)){
+            if(dx < 0){
+                this.direction = 3;
+            } else{
+                this.direction = 2;
+            }
+        } else {
+            if(dy < 0){
+                this.direction = 1;
+            } else {
+                this.direction = 0;
+            }
+        }
 
-        vx *= 15;
-        vy *= 15;
+        vx *= 64;
+        vy *= 64;
 
         if(this.body){
             vx = this.body.velocity.x * 0.9 + vx * 0.1;
@@ -69,6 +95,7 @@ export class Enemy extends Physics.Arcade.Sprite {
             this.setVelocity(vx,vy);
         }
 
+        this.setAnimationFrame();
         this.depth = this.y + this.height/2;
     }
 }

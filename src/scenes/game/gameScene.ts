@@ -1,10 +1,9 @@
-import options from '../../options';
 import { GameObjects, Scene } from 'phaser';
 
 import '../../types';
 import { UIScene } from '../ui/uiScene';
 import { Player } from '../../entities/player';
-import { Enemy } from '../../entities/enemy';
+import { Director } from '../../systems/director';
 
 const animation_frames = (frame: string, frames: number | number[]) => {
     const ret = [];
@@ -19,9 +18,6 @@ const animation_frames = (frame: string, frames: number | number[]) => {
     }
     return ret;
 };
-
-const worldWidth = 8192;
-const worldHeight = 8192;
 
 export type KeyMap = {
     Up: Phaser.Input.Keyboard.Key;
@@ -50,6 +46,12 @@ export class GameScene extends Scene {
     playerGroup?: Phaser.GameObjects.Group;
     enemyGroup?: Phaser.GameObjects.Group;
     playerBullets?: Phaser.GameObjects.Group;
+    collectables?: Phaser.GameObjects.Group;
+
+    director: Director;
+
+    worldWidth = 8192;
+    worldHeight = 8192;
 
     constructor(config: Phaser.Types.Scenes.SettingsConfig) {
         if (!config) {
@@ -58,32 +60,32 @@ export class GameScene extends Scene {
         config.key = 'GameScene';
         super(config);
         this.gameOverActive = false;
+        this.director = new Director(this);
     }
 
     create() {
         this.score = 0;
         this.sound.pauseOnBlur = false;
 
+        
+
         this.playerGroup = this.physics.add.group();
         this.playerBullets = this.physics.add.group();
         this.enemyGroup = this.physics.add.group();
+        this.collectables = this.physics.add.group();
         const handler = (a: any, b: any) => {
             a.onCollide && a.onCollide(b);
             b.onCollide && b.onCollide(a);
         };
         this.physics.add.overlap(this.playerBullets, this.enemyGroup, handler);
         this.physics.add.overlap(this.playerGroup, this.enemyGroup, handler);
+        this.physics.add.overlap(this.playerGroup, this.collectables, handler);
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
         this.physics.add.collider(this.playerGroup, this.enemyGroup);
 
-        this.bg = this.add.tileSprite(0, 0, worldWidth, worldHeight, 'bg');
+        this.bg = this.add.tileSprite(0, 0, this.worldWidth, this.worldHeight, 'bg');
         this.bg.setDepth(-65535);
         this.player = new Player(this);
-        for(let i = 0;i < 50; i++){
-            const x = Math.random() * 1280;
-            const y = Math.random() * 720;
-            new Enemy(this, x, y);
-        }
 
         this.cameras.main.setBounds(-1000, -1000, 12800, 7200);
         this.cameras.main.startFollow(this.player, false, 0.05, 0.05);
@@ -91,7 +93,7 @@ export class GameScene extends Scene {
         const ui = this.scene.get('UIScene') as UIScene;
         ui.events.emit('reset');
 
-        this.physics.world.setBounds(0, 0, 1280, 720);
+        this.physics.world.setBounds(-this.worldWidth, -this.worldHeight, this.worldWidth*2, this.worldHeight*2);
         this.keymap = this.input.keyboard?.addKeys(
             'Up,Left,Right,Down,X,Z,Shift,Y,W,A,S,D'
         ) as KeyMap;
@@ -102,5 +104,6 @@ export class GameScene extends Scene {
 
     update(time: number, delta: number) {
         this.gameTicks += delta;
+        this.director.update(time, delta);
     }
 }

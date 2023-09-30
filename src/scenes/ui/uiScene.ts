@@ -3,6 +3,7 @@ import type { GameScene } from '../game/gameScene';
 
 export class UIScene extends Scene {
     health?: Phaser.GameObjects.Text;
+    money?: Phaser.GameObjects.Text;
 
     constructor(config: Phaser.Types.Scenes.SettingsConfig) {
         if (!config) {
@@ -17,6 +18,8 @@ export class UIScene extends Scene {
         this.health = this.add.text(16,16,'');
         this.health.setShadow(0,0,"#000", 4, true, true);
         
+        this.money = this.add.text(16,32,'');
+        this.money.setShadow(0,0,"#000", 4, true, true);
     }
 
     update(time: number, delta: number) {
@@ -25,6 +28,9 @@ export class UIScene extends Scene {
         const player = gs.player;
         if(player && this.health){
             this.health.setText(`Health: ${player.health}`);
+        }
+        if(player && this.money){
+            this.money.setText(`Money: ${player.money}`);
         }
     }
 }

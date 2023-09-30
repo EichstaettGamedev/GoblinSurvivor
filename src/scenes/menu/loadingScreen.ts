@@ -102,8 +102,9 @@ export class LoadingScreenScene extends Scene {
     preload() {
         this.initLoadScreen();
         //this.load.multiatlas('packed', 'gfx/packed.json', 'gfx');
-        this.load.image('player', 'unpacked_gfx/player.png');
-        this.load.image('enemy', 'unpacked_gfx/enemy.png');
+        this.load.image('coin', 'unpacked_gfx/coin.png');
+        this.load.spritesheet('player', 'unpacked_gfx/player.png', { frameWidth: 24, frameHeight: 32 });
+        this.load.spritesheet('enemy', 'unpacked_gfx/enemy.png', { frameWidth: 64, frameHeight: 64 });
         this.load.image('bullet', 'unpacked_gfx/bullet.png');
         this.load.image('bg', 'unpacked_gfx/background.png');
 

@@ -5,17 +5,26 @@ import { Enemy } from './enemy';
 
 export class Player extends Physics.Arcade.Sprite {
     health = 100;
+    money = 0;
     lastShot = 0;
     shootRate = 500;
     vx = 0;
     vy = 0;
 
+    moving = false;
+    direction = 2;
+
     constructor(scene: GameScene) {
-        super(scene, 640, 320, 'player');
+        super(scene, 0, 0, 'player');
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.playerGroup?.add(this);
         this.setCircle(8,8,16);
+    }
+
+    collectCoin(value: number){
+        this.money += value;
+        (this.scene as GameScene).score += value;
     }
 
     damage(v: number){
@@ -45,6 +54,13 @@ export class Player extends Physics.Arcade.Sprite {
         return closest;
     }
 
+    private setAnimationFrame(){
+        const rfc = ((this.scene.time.now / 250)|0) % 4;
+        const fc = rfc > 2 ? 1 : rfc;
+        const off = this.moving ? fc : 1;
+        this.setFrame(this.direction * 3 + off);
+    }
+
     preUpdate(time: number, delta: number) {
         const gs = this.scene as GameScene;
 
@@ -67,8 +83,21 @@ export class Player extends Physics.Arcade.Sprite {
         if(gs.keymap?.S.isDown || gs.keymap?.Down.isDown){
             vy += 1;
         }
-        vx *= 50;
-        vy *= 50;
+
+        if(vx < 0){
+            this.direction = 3;
+        } else if(vx > 0){
+            this.direction = 1;
+        }
+        if(vy < 0){
+            this.direction = 0;
+        } else if(vy > 0){
+            this.direction = 2;
+        }
+        this.moving = Boolean(vx || vy);
+
+        vx *= 128;
+        vy *= 128;
         this.vx = this.vx * 0.8 + vx * 0.2;
         this.vy = this.vy * 0.8 + vy * 0.2;
         this.setVelocity(this.vx, this.vy);
@@ -84,6 +113,7 @@ export class Player extends Physics.Arcade.Sprite {
         }
 
         this.depth = this.y + this.height/2;
+        this.setAnimationFrame();
     }
 
     onCollide(other: any){
