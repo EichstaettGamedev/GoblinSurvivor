@@ -4,6 +4,7 @@ import '../../types';
 import { UIScene } from '../ui/uiScene';
 import { Player } from '../../entities/player';
 import { Director } from '../../systems/director';
+import { KeyboardInput } from '../../systems/keyboardInput';
 
 const animation_frames = (frame: string, frames: number | number[]) => {
     const ret = [];
@@ -42,7 +43,7 @@ export class GameScene extends Scene {
     score = 0;
 
     bg?: Phaser.GameObjects.TileSprite;
-    player?: Player;
+    players: Set<Player> = new Set();
     playerGroup?: Phaser.GameObjects.Group;
     enemyGroup?: Phaser.GameObjects.Group;
     playerBullets?: Phaser.GameObjects.Group;
@@ -64,6 +65,7 @@ export class GameScene extends Scene {
     }
 
     create() {
+        this.players = new Set();
         this.score = 0;
         this.sound.pauseOnBlur = false;
 
@@ -90,10 +92,13 @@ export class GameScene extends Scene {
             'background'
         );
         this.bg.setDepth(-65535);
-        this.player = new Player(this);
+        const firstPlayer = new Player(this, new KeyboardInput(this, "W", "S", "A", "D"), -32);
+        this.players.add(firstPlayer);
+        const secondPlayer = new Player(this, new KeyboardInput(this, "Up", "Down", "Left", "Right"), 32);
+        this.players.add(secondPlayer);
 
         this.cameras.main.setBounds(-1000, -1000, 12800, 7200);
-        this.cameras.main.startFollow(this.player, false, 0.05, 0.05);
+        this.cameras.main.startFollow(firstPlayer, false, 0.05, 0.05);
 
         const ui = this.scene.get('UIScene') as UIScene;
         ui.events.emit('reset');

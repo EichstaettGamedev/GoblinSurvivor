@@ -51,7 +51,8 @@ export class Enemy extends Physics.Arcade.Sprite {
 
     preUpdate(time: number, delta: number) {
         const gs = this.scene as GameScene;
-        if (!gs.player) {
+        const player = gs.players.values().next().value;
+        if (!player) {
             return;
         }
 
@@ -61,20 +62,20 @@ export class Enemy extends Physics.Arcade.Sprite {
 
         let vx = 0;
         let vy = 0;
-        if (gs.player.x < this.x) {
+        if (player.x < this.x) {
             vx--;
-        } else if (gs.player.x > this.x) {
+        } else if (player.x > this.x) {
             vx++;
         }
 
-        if (gs.player.y < this.y) {
+        if (player.y < this.y) {
             vy--;
-        } else if (gs.player.y > this.y) {
+        } else if (player.y > this.y) {
             vy++;
         }
 
-        const dx = gs.player.x - this.x;
-        const dy = gs.player.y - this.y;
+        const dx = player.x - this.x;
+        const dy = player.y - this.y;
         if (Math.abs(dx) > Math.abs(dy)) {
             if (dx < 0) {
                 this.direction = 3;

@@ -22,15 +22,16 @@ export class Director {
             return;
         }
 
-        if (!this.scene.player) {
+        const firstPlayer = this.scene.players.values().next().value;
+        if(!firstPlayer){
             return;
         }
 
         for (let i = 0; i < 32; i++) {
             const deg = Math.random() * Math.PI;
             const d = Math.random() * 200 + 960;
-            const x = this.scene.player.x + Math.cos(deg) * d;
-            const y = this.scene.player.y + Math.sin(deg) * d;
+            const x = firstPlayer.x + Math.cos(deg) * d;
+            const y = firstPlayer.y + Math.sin(deg) * d;
 
             new Enemy(this.scene, x, y);
             this.spawnCooldown =

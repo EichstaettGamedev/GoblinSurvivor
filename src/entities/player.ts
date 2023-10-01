@@ -1,7 +1,8 @@
+import type { Skill } from '../skills/Skill';
+import type { Input } from '../systems/input';
 import { Physics } from 'phaser';
 import { GameScene } from '../scenes/game/gameScene';
 import { Enemy } from './enemy';
-import type { Skill } from '../skills/Skill';
 import { MagicMissile } from '../skills/MagicMissile';
 
 const sprites = Array(12).fill(0).map((_,i) => `player/${i}`);
@@ -17,8 +18,8 @@ export class Player extends Physics.Arcade.Sprite {
 
     skills: Set<Skill> = new Set();
 
-    constructor(scene: GameScene) {
-        super(scene, 0, 0, 'packed', 'player/0');
+    constructor(scene: GameScene, protected inputScheme: Input, x = 0, y = 0) {
+        super(scene, x, y, 'packed', 'player/0');
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.playerGroup?.add(this);
@@ -36,7 +37,7 @@ export class Player extends Physics.Arcade.Sprite {
     }
 
     die() {
-        (this.scene as GameScene).player = undefined;
+        (this.scene as GameScene).players.delete(this);
         this.scene.scene.switch('GameOverScene');
         this.destroy();
     }
@@ -62,28 +63,9 @@ export class Player extends Physics.Arcade.Sprite {
         }
     }
 
-    private checkInput() {
-        const gs = this.scene as GameScene;
-
-        let vx = 0;
-        let vy = 0;
-        this.moving = false;
-        if (gs.keymap?.A.isDown || gs.keymap?.Left.isDown) {
-            vx -= 1;
-            this.moving = true;
-        }
-        if (gs.keymap?.D.isDown || gs.keymap?.Right.isDown) {
-            vx += 1;
-            this.moving = true;
-        }
-        if (gs.keymap?.W.isDown || gs.keymap?.Up.isDown) {
-            vy -= 1;
-            this.moving = true;
-        }
-        if (gs.keymap?.S.isDown || gs.keymap?.Down.isDown) {
-            vy += 1;
-            this.moving = true;
-        }
+    private checkInput(time: number, delta: number) {
+        let [vx, vy] = this.inputScheme.checkInput(time, delta);
+        this.moving = Boolean(vx || vy);
         this.setDirection(vx, vy);
         vx *= 128;
         vy *= 128;
@@ -98,7 +80,7 @@ export class Player extends Physics.Arcade.Sprite {
             return;
         }
 
-        this.checkInput();
+        this.checkInput(time, delta);
         this.setAnimationFrame();
         for(const skill of this.skills){
             skill.update(time, delta);

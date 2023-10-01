@@ -26,7 +26,7 @@ export class UIScene extends Scene {
         if (!gs) {
             return;
         }
-        const player = gs.player;
+        const player = gs.players.values().next().value;
         if (player && this.health) {
             this.health.setText(`Health: ${player.health}`);
         }
