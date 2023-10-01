@@ -1,4 +1,4 @@
-import { GameObjects, Scene } from 'phaser';
+import { Scene } from 'phaser';
 
 import '../../types';
 import { UIScene } from '../ui/uiScene';
@@ -38,7 +38,7 @@ export class GameScene extends Scene {
     keymap?: KeyMap;
     gameOverActive: boolean;
 
-    gameTicks = 0;
+    gameTime = 0;
     score = 0;
 
     bg?: Phaser.GameObjects.TileSprite;
@@ -86,7 +86,8 @@ export class GameScene extends Scene {
             0,
             this.worldWidth,
             this.worldHeight,
-            'bg'
+            'packed',
+            'background'
         );
         this.bg.setDepth(-65535);
         this.player = new Player(this);
@@ -107,11 +108,11 @@ export class GameScene extends Scene {
             'Up,Left,Right,Down,X,Z,Shift,Y,W,A,S,D'
         ) as KeyMap;
         this.gameOverActive = false;
-        this.gameTicks = 0;
+        this.gameTime = 0;
     }
 
     update(time: number, delta: number) {
-        this.gameTicks += delta;
+        this.gameTime += delta;
         this.director.update(time, delta);
     }
 }

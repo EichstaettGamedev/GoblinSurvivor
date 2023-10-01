@@ -9,7 +9,7 @@ export class Coin extends Physics.Arcade.Sprite {
         y: number,
         private value: number
     ) {
-        super(scene, x, y, 'coin');
+        super(scene, x, y, 'packed', 'coin');
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.collectables?.add(this);

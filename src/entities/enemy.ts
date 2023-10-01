@@ -2,6 +2,8 @@ import { Physics } from 'phaser';
 import type { GameScene } from '../scenes/game/gameScene';
 import { Coin } from './coin';
 
+const sprites = Array(12).fill(0).map((_,i) => `enemy/${i}`);
+
 export class Enemy extends Physics.Arcade.Sprite {
     scene: GameScene;
     health = 20;
@@ -10,7 +12,7 @@ export class Enemy extends Physics.Arcade.Sprite {
     direction = 0;
 
     constructor(scene: GameScene, x: number, y: number) {
-        super(scene, x, y, 'enemy');
+        super(scene, x, y, 'packed', 'enemy/0');
         this.scene = scene;
         scene.add.existing(this);
         scene.physics.add.existing(this);
@@ -44,7 +46,7 @@ export class Enemy extends Physics.Arcade.Sprite {
             return;
         }
         const fc = ((this.scene.time.now / 250) | 0) % 3;
-        this.setFrame(this.direction * 3 + fc);
+        this.setFrame(sprites[this.direction * 3 + fc]);
     }
 
     preUpdate(time: number, delta: number) {

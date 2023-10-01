@@ -13,7 +13,7 @@ export class Bullet extends Physics.Arcade.Sprite {
         vy: number,
         ttl: number
     ) {
-        super(scene, x, y, 'bullet');
+        super(scene, x, y, 'packed', 'bullet');
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.playerBullets?.add(this);

@@ -101,7 +101,8 @@ export class LoadingScreenScene extends Scene {
 
     preload() {
         this.initLoadScreen();
-        //this.load.multiatlas('packed', 'gfx/packed.json', 'gfx');
+        this.load.multiatlas('packed', 'gfx/packed.json', 'gfx');
+        /*
         this.load.image('coin', 'unpacked_gfx/coin.png');
         this.load.spritesheet('player', 'unpacked_gfx/player.png', {
             frameWidth: 24,
@@ -113,6 +114,7 @@ export class LoadingScreenScene extends Scene {
         });
         this.load.image('bullet', 'unpacked_gfx/bullet.png');
         this.load.image('bg', 'unpacked_gfx/background.png');
+        */
     }
 
     create() {
