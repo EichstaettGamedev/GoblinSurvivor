@@ -67,8 +67,6 @@ export class GameScene extends Scene {
         this.score = 0;
         this.sound.pauseOnBlur = false;
 
-        
-
         this.playerGroup = this.physics.add.group();
         this.playerBullets = this.physics.add.group();
         this.enemyGroup = this.physics.add.group();
@@ -83,7 +81,13 @@ export class GameScene extends Scene {
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
         this.physics.add.collider(this.playerGroup, this.enemyGroup);
 
-        this.bg = this.add.tileSprite(0, 0, this.worldWidth, this.worldHeight, 'bg');
+        this.bg = this.add.tileSprite(
+            0,
+            0,
+            this.worldWidth,
+            this.worldHeight,
+            'bg'
+        );
         this.bg.setDepth(-65535);
         this.player = new Player(this);
 
@@ -93,13 +97,17 @@ export class GameScene extends Scene {
         const ui = this.scene.get('UIScene') as UIScene;
         ui.events.emit('reset');
 
-        this.physics.world.setBounds(-this.worldWidth, -this.worldHeight, this.worldWidth*2, this.worldHeight*2);
+        this.physics.world.setBounds(
+            -this.worldWidth,
+            -this.worldHeight,
+            this.worldWidth * 2,
+            this.worldHeight * 2
+        );
         this.keymap = this.input.keyboard?.addKeys(
             'Up,Left,Right,Down,X,Z,Shift,Y,W,A,S,D'
         ) as KeyMap;
         this.gameOverActive = false;
         this.gameTicks = 0;
-
     }
 
     update(time: number, delta: number) {

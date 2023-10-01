@@ -3,12 +3,17 @@ import type { GameScene } from '../scenes/game/gameScene';
 import { Player } from './player';
 
 export class Coin extends Physics.Arcade.Sprite {
-    constructor(scene: GameScene, x:number, y:number, private value: number) {
+    constructor(
+        scene: GameScene,
+        x: number,
+        y: number,
+        private value: number
+    ) {
         super(scene, x, y, 'coin');
         scene.add.existing(this);
         scene.physics.add.existing(this);
         scene.collectables?.add(this);
-        this.setSize(12,12);
+        this.setSize(12, 12);
         this.depth = -1000;
     }
 
@@ -19,7 +24,7 @@ export class Coin extends Physics.Arcade.Sprite {
     }
 
     onCollide(other: any) {
-        if(other instanceof Player){
+        if (other instanceof Player) {
             other.collectCoin(this.value);
             this.die();
         }

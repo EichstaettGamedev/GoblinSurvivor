@@ -5,8 +5,7 @@ const introHTML = `<h1>Vampire Survivors Clone</h1>
 <br/>
 <p>Probably needs a better title, but this has to suffice for now</p>`;
 
-const gitHubLink =
-    'https://github.com/EichstaettGamedev/GoblinSurvivor';
+const gitHubLink = 'https://github.com/EichstaettGamedev/GoblinSurvivor';
 const phaserLink = 'https://phaser.io/';
 
 export class MainMenuScene extends Scene {
