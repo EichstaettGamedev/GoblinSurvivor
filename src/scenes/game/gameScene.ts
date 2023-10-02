@@ -83,9 +83,9 @@ export class GameScene extends Scene {
             'background'
         );
         this.bg.setDepth(-65535);
-        this.players.add(new Player(this, new KeyboardInput(this, "W", "S", "A", "D")));
 
         this.freeInputSchemes.add(new KeyboardInput(this, "Up", "Down", "Left", "Right"));
+        this.freeInputSchemes.add(new KeyboardInput(this, "W", "S", "A", "D"));
         this.freeInputSchemes.add(new PointerInput(this));
 
         this.cameras.main.setBounds(-this.worldWidth, -this.worldHeight, this.worldWidth * 2, this.worldHeight * 2);

@@ -33,5 +33,9 @@ export class UIScene extends Scene {
         if (player && this.money) {
             this.money.setText(`Money: ${gs.score}`);
         }
+
+        if(!player){
+            this.health?.setText("Press WASD / Cursor-keys or Click/Touch the screen to join");
+        }
     }
 }
