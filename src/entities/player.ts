@@ -9,7 +9,7 @@ const sprites = Array(12).fill(0).map((_,i) => `player/${i}`);
 
 export class Player extends Physics.Arcade.Sprite {
     health = 100;
-    money = 0;
+    dead = false;
     vx = 0;
     vy = 0;
 
@@ -28,7 +28,6 @@ export class Player extends Physics.Arcade.Sprite {
     }
 
     collectCoin(value: number) {
-        this.money += value;
         (this.scene as GameScene).score += value;
     }
 
@@ -37,12 +36,15 @@ export class Player extends Physics.Arcade.Sprite {
     }
 
     die() {
-        (this.scene as GameScene).players.delete(this);
-        this.scene.scene.switch('GameOverScene');
-        this.destroy();
+        this.dead = true;
+        this.health = 0;
     }
 
     private setAnimationFrame() {
+        if(this.dead){
+            this.setFrame('player/dead');
+            return;
+        }
         const rfc = ((this.scene.time.now / 250) | 0) % 4;
         const fc = rfc > 2 ? 1 : rfc;
         const off = this.moving ? fc : 1;
@@ -77,13 +79,17 @@ export class Player extends Physics.Arcade.Sprite {
     preUpdate(time: number, delta: number) {
         if (this.health <= 0) {
             this.die();
-            return;
         }
 
-        this.checkInput(time, delta);
+        if(!this.dead){
+            this.checkInput(time, delta);
+        }
+
         this.setAnimationFrame();
-        for(const skill of this.skills){
-            skill.update(time, delta);
+        if(!this.dead){
+            for(const skill of this.skills){
+                skill.update(time, delta);
+            }
         }
         this.depth = this.y + this.height / 2;
     }

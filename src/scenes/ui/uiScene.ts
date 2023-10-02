@@ -31,7 +31,7 @@ export class UIScene extends Scene {
             this.health.setText(`Health: ${player.health}`);
         }
         if (player && this.money) {
-            this.money.setText(`Money: ${player.money}`);
+            this.money.setText(`Money: ${gs.score}`);
         }
     }
 }

@@ -596,6 +596,27 @@
 						"w": 16,
 						"h": 28
 					}
+				},
+				{
+					"filename": "player/dead",
+					"rotated": false,
+					"trimmed": true,
+					"sourceSize": {
+						"w": 24,
+						"h": 32
+					},
+					"spriteSourceSize": {
+						"x": 4,
+						"y": 3,
+						"w": 16,
+						"h": 28
+					},
+					"frame": {
+						"x": 22,
+						"y": 164,
+						"w": 16,
+						"h": 28
+					}
 				}
 			]
 		}
@@ -603,6 +624,6 @@
 	"meta": {
 		"app": "https://www.codeandweb.com/texturepacker",
 		"version": "3.0",
-		"smartupdate": "$TexturePacker:SmartUpdate:07ccb1a33c187e7065da56ee6d40bc77:fb2bb1138434f021e191c73c742ee664:de62c4130a72712ae995d05d7f4a14e5$"
+		"smartupdate": "$TexturePacker:SmartUpdate:d649ed0e24b95d92023b7f3c15135d8a:b5534822acfda90c71d481f7412cf11c:de62c4130a72712ae995d05d7f4a14e5$"
 	}
 }

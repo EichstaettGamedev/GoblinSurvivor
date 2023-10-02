@@ -5,34 +5,18 @@ import { UIScene } from '../ui/uiScene';
 import { Player } from '../../entities/player';
 import { Director } from '../../systems/director';
 import { KeyboardInput } from '../../systems/keyboardInput';
-
-const animation_frames = (frame: string, frames: number | number[]) => {
-    const ret = [];
-    if (Array.isArray(frames)) {
-        for (let i = 0; i < frames.length; i++) {
-            ret.push({ key: 'packed', frame: `${frame}_${frames[i]}` });
-        }
-    } else {
-        for (let i = 0; i < frames; i++) {
-            ret.push({ key: 'packed', frame: `${frame}_${i}` });
-        }
-    }
-    return ret;
-};
+import { Input } from '../../systems/input';
 
 export type KeyMap = {
     Up: Phaser.Input.Keyboard.Key;
     Left: Phaser.Input.Keyboard.Key;
     Right: Phaser.Input.Keyboard.Key;
     Down: Phaser.Input.Keyboard.Key;
-    Z: Phaser.Input.Keyboard.Key;
-    X: Phaser.Input.Keyboard.Key;
-    Y: Phaser.Input.Keyboard.Key;
+
     W: Phaser.Input.Keyboard.Key;
     A: Phaser.Input.Keyboard.Key;
     S: Phaser.Input.Keyboard.Key;
     D: Phaser.Input.Keyboard.Key;
-    Shift: Phaser.Input.Keyboard.Key;
 };
 
 export class GameScene extends Scene {
@@ -42,12 +26,15 @@ export class GameScene extends Scene {
     gameTime = 0;
     score = 0;
 
+    cameraPosition?: Phaser.GameObjects.Image;
     bg?: Phaser.GameObjects.TileSprite;
     players: Set<Player> = new Set();
     playerGroup?: Phaser.GameObjects.Group;
     enemyGroup?: Phaser.GameObjects.Group;
     playerBullets?: Phaser.GameObjects.Group;
     collectables?: Phaser.GameObjects.Group;
+
+    freeInputSchemes: Set<Input> = new Set();
 
     director: Director;
 
@@ -66,8 +53,10 @@ export class GameScene extends Scene {
 
     create() {
         this.players = new Set();
+        this.freeInputSchemes = new Set();
         this.score = 0;
         this.sound.pauseOnBlur = false;
+        this.cameraPosition = this.add.image(0,0,'packed','void');
 
         this.playerGroup = this.physics.add.group();
         this.playerBullets = this.physics.add.group();
@@ -82,6 +71,7 @@ export class GameScene extends Scene {
         this.physics.add.overlap(this.playerGroup, this.collectables, handler);
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
         this.physics.add.collider(this.playerGroup, this.enemyGroup);
+        this.physics.add.collider(this.playerGroup, this.playerGroup);
 
         this.bg = this.add.tileSprite(
             0,
@@ -92,13 +82,12 @@ export class GameScene extends Scene {
             'background'
         );
         this.bg.setDepth(-65535);
-        const firstPlayer = new Player(this, new KeyboardInput(this, "W", "S", "A", "D"), -32);
-        this.players.add(firstPlayer);
-        const secondPlayer = new Player(this, new KeyboardInput(this, "Up", "Down", "Left", "Right"), 32);
-        this.players.add(secondPlayer);
+        this.players.add(new Player(this, new KeyboardInput(this, "W", "S", "A", "D")));
 
-        this.cameras.main.setBounds(-1000, -1000, 12800, 7200);
-        this.cameras.main.startFollow(firstPlayer, false, 0.05, 0.05);
+        this.freeInputSchemes.add(new KeyboardInput(this, "Up", "Down", "Left", "Right"));
+
+        this.cameras.main.setBounds(-this.worldWidth, -this.worldHeight, this.worldWidth * 2, this.worldHeight * 2);
+        this.cameras.main.startFollow(this.cameraPosition, false, 0.05, 0.05);
 
         const ui = this.scene.get('UIScene') as UIScene;
         ui.events.emit('reset');
@@ -110,14 +99,41 @@ export class GameScene extends Scene {
             this.worldHeight * 2
         );
         this.keymap = this.input.keyboard?.addKeys(
-            'Up,Left,Right,Down,X,Z,Shift,Y,W,A,S,D'
+            'Up,Left,Right,Down,W,A,S,D'
         ) as KeyMap;
         this.gameOverActive = false;
         this.gameTime = 0;
     }
 
+    checkForNewPlayers(time: number, delta: number) {
+        for(const i of this.freeInputSchemes){
+            if(i.checkJoin(time, delta)){
+                const player = new Player(this, i);
+                this.players.add(player);
+                this.freeInputSchemes.delete(i);
+            }
+        }
+    }
+
+    updateCameraPosition() {
+        if(this.players.size <= 0){
+            return;
+        }
+
+        let x = 0;
+        let y = 0;
+        for(const p of this.players){
+            x += p.x;
+            y += p.y;
+        }
+        this.cameraPosition?.setPosition(x / this.players.size, y / this.players.size);
+        console.log(this.cameraPosition?.x, this.cameraPosition?.y);
+    }
+
     update(time: number, delta: number) {
         this.gameTime += delta;
         this.director.update(time, delta);
+        this.checkForNewPlayers(time, delta);
+        this.updateCameraPosition();
     }
 }

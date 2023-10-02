@@ -4,7 +4,7 @@
         <key>fileFormatVersion</key>
         <int>6</int>
         <key>texturePackerVersion</key>
-        <string>7.0.0</string>
+        <string>7.0.3</string>
         <key>autoSDSettings</key>
         <array>
             <struct type="AutoSDSettings">
@@ -173,9 +173,7 @@
         </struct>
         <key>individualSpriteSettings</key>
         <map type="IndividualSpriteSettingsMap">
-            <key type="filename">assets/unpacked_gfx/player_0.png</key>
-            <key type="filename">assets/unpacked_gfx/player_1.png</key>
-            <key type="filename">assets/unpacked_gfx/player_2.png</key>
+            <key type="filename">assets/unpacked_gfx/background.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -190,7 +188,7 @@
                 <key>scale9FromFile</key>
                 <false/>
             </struct>
-            <key type="filename">assets/unpacked_gfx/sky.png</key>
+            <key type="filename">assets/unpacked_gfx/bullet.png</key>
             <struct type="IndividualSpriteSettings">
                 <key>pivotPoint</key>
                 <point_f>0.5,0.5</point_f>
@@ -199,9 +197,77 @@
                 <key>scale9Enabled</key>
                 <false/>
                 <key>scale9Borders</key>
-                <rect>1,8,2,16</rect>
+                <rect>6,6,12,12</rect>
                 <key>scale9Paddings</key>
-                <rect>1,8,2,16</rect>
+                <rect>6,6,12,12</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">assets/unpacked_gfx/coin.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9Paddings</key>
+                <rect>4,4,8,8</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">assets/unpacked_gfx/enemy/0.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/1.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/10.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/11.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/2.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/3.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/4.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/5.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/6.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/7.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/8.png</key>
+            <key type="filename">assets/unpacked_gfx/enemy/9.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9Paddings</key>
+                <rect>16,16,32,32</rect>
+                <key>scale9FromFile</key>
+                <false/>
+            </struct>
+            <key type="filename">assets/unpacked_gfx/player/0.png</key>
+            <key type="filename">assets/unpacked_gfx/player/1.png</key>
+            <key type="filename">assets/unpacked_gfx/player/10.png</key>
+            <key type="filename">assets/unpacked_gfx/player/11.png</key>
+            <key type="filename">assets/unpacked_gfx/player/2.png</key>
+            <key type="filename">assets/unpacked_gfx/player/3.png</key>
+            <key type="filename">assets/unpacked_gfx/player/4.png</key>
+            <key type="filename">assets/unpacked_gfx/player/5.png</key>
+            <key type="filename">assets/unpacked_gfx/player/6.png</key>
+            <key type="filename">assets/unpacked_gfx/player/7.png</key>
+            <key type="filename">assets/unpacked_gfx/player/8.png</key>
+            <key type="filename">assets/unpacked_gfx/player/9.png</key>
+            <key type="filename">assets/unpacked_gfx/player/dead.png</key>
+            <struct type="IndividualSpriteSettings">
+                <key>pivotPoint</key>
+                <point_f>0.5,0.5</point_f>
+                <key>spriteScale</key>
+                <double>1</double>
+                <key>scale9Enabled</key>
+                <false/>
+                <key>scale9Borders</key>
+                <rect>6,8,12,16</rect>
+                <key>scale9Paddings</key>
+                <rect>6,8,12,16</rect>
                 <key>scale9FromFile</key>
                 <false/>
             </struct>

@@ -4,4 +4,5 @@ export abstract class Input {
     constructor(protected scene: GameScene) {}
 
     abstract checkInput(time: number, delta: number): [number, number];
+    abstract checkJoin(time: number, delta: number): boolean;
 }

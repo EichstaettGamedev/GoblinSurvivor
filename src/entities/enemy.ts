@@ -51,7 +51,20 @@ export class Enemy extends Physics.Arcade.Sprite {
 
     preUpdate(time: number, delta: number) {
         const gs = this.scene as GameScene;
-        const player = gs.players.values().next().value;
+        let player = undefined;
+        let playerDD = 999999;
+        for(const p of gs.players){
+            if(p.dead){
+                continue;
+            }
+            const dx = p.x - this.x;
+            const dy = p.y - this.y;
+            const dd = dx*dx + dy*dy;
+            if(dd < playerDD){
+                playerDD = dd;
+                player = p;
+            }
+        }
         if (!player) {
             return;
         }

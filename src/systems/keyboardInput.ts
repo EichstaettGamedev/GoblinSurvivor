@@ -7,8 +7,7 @@ export class KeyboardInput extends Input {
     }
 
     checkInput(time: number, delta: number): [number, number] {
-        const gs = this.scene;
-        const keymap = gs.keymap as Record<string, {isDown: boolean}>
+        const keymap = this.scene.keymap as Record<string, {isDown: boolean}>
 
         let vx = 0;
         let vy = 0;
@@ -25,5 +24,13 @@ export class KeyboardInput extends Input {
             vy += 1;
         }
         return [vx, vy];
+    }
+
+    checkJoin(time: number, delta: number): boolean {
+        const keymap = this.scene.keymap as Record<string, {isDown: boolean}>
+        return keymap[this.leftKey].isDown
+        || keymap[this.rightKey].isDown
+        || keymap[this.upKey].isDown
+        || keymap[this.downKey].isDown;
     }
 }
