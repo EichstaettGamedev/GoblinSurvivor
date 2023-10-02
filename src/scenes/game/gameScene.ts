@@ -6,6 +6,7 @@ import { Player } from '../../entities/player';
 import { Director } from '../../systems/director';
 import { KeyboardInput } from '../../systems/keyboardInput';
 import { Input } from '../../systems/input';
+import { PointerInput } from '../../systems/pointerInput';
 
 export type KeyMap = {
     Up: Phaser.Input.Keyboard.Key;
@@ -85,6 +86,7 @@ export class GameScene extends Scene {
         this.players.add(new Player(this, new KeyboardInput(this, "W", "S", "A", "D")));
 
         this.freeInputSchemes.add(new KeyboardInput(this, "Up", "Down", "Left", "Right"));
+        this.freeInputSchemes.add(new PointerInput(this));
 
         this.cameras.main.setBounds(-this.worldWidth, -this.worldHeight, this.worldWidth * 2, this.worldHeight * 2);
         this.cameras.main.startFollow(this.cameraPosition, false, 0.05, 0.05);
@@ -110,6 +112,7 @@ export class GameScene extends Scene {
             if(i.checkJoin(time, delta)){
                 const player = new Player(this, i);
                 this.players.add(player);
+                i.activate(player);
                 this.freeInputSchemes.delete(i);
             }
         }
@@ -127,7 +130,6 @@ export class GameScene extends Scene {
             y += p.y;
         }
         this.cameraPosition?.setPosition(x / this.players.size, y / this.players.size);
-        console.log(this.cameraPosition?.x, this.cameraPosition?.y);
     }
 
     update(time: number, delta: number) {
