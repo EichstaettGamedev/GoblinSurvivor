@@ -52,16 +52,18 @@ export class Player extends Physics.Arcade.Sprite {
     }
 
     private setDirection(vx:number, vy:number) {
-        if (vx < 0) {
-            this.direction = 3;
-        } else if (vx > 0) {
-            this.direction = 1;
-        }
-
-        if (vy < 0) {
-            this.direction = 0;
-        } else if (vy > 0) {
-            this.direction = 2;
+        if(Math.abs(vx) > Math.abs(vy)){
+            if (vx < 0) {
+                this.direction = 3;
+            } else if (vx > 0) {
+                this.direction = 1;
+            }
+        } else {
+            if (vy < 0) {
+                this.direction = 0;
+            } else if (vy > 0) {
+                this.direction = 2;
+            }
         }
     }
 
