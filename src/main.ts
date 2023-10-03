@@ -15,6 +15,12 @@ const main = () => {
         type: Phaser.WEBGL,
         width: 1280,
         height: 720,
+        scale: {
+            // Fit to window
+            mode: Phaser.Scale.RESIZE,
+            // Center vertically and horizontally
+            autoCenter: Phaser.Scale.CENTER_BOTH
+        },
         //pixelArt: true,
         parent: document.getElementById('phaser-parent') as HTMLElement,
         title: 'Goblin Survivor',
@@ -24,10 +30,6 @@ const main = () => {
         },
         input: {
             gamepad: true,
-        },
-        scale: {
-            mode: Phaser.Scale.FIT,
-            autoCenter: Phaser.Scale.CENTER_BOTH,
         },
         physics: {
             default: 'arcade',
