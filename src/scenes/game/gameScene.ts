@@ -26,6 +26,7 @@ export class GameScene extends Scene {
 
     gameTime = 0;
     score = 0;
+    playerLevel = 0;
 
     cameraPosition?: Phaser.GameObjects.Image;
     bg?: Phaser.GameObjects.TileSprite;
@@ -116,6 +117,19 @@ export class GameScene extends Scene {
         return true;
     }
 
+    checkForLevelUp() {
+        if(this.players.size <= 0){
+            return;
+        }
+        const scoreNeeded = this.playerLevel * 10;
+        if(this.score >= scoreNeeded){
+            if(!this.scene.isActive("LevelUp")){
+                this.scene.start("LevelUp");
+                this.scene.pause();
+            }
+        }
+    }
+
     checkForNewPlayers(time: number, delta: number) {
         for(const i of this.freeInputSchemes){
             if(i.checkJoin(time, delta)){
@@ -149,5 +163,6 @@ export class GameScene extends Scene {
         if((this.players.size > 0) && this.allPlayersDead()){
             this.scene.switch("GameOverScene");
         }
+        this.checkForLevelUp();
     }
 }

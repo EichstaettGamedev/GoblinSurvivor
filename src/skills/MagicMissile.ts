@@ -1,8 +1,12 @@
 import { Bullet } from "../entities/bullet";
 import { Skill } from "./Skill";
 import type { GameScene } from "../scenes/game/gameScene";
+import icon from "../../assets/gfx/skill_icons/bullet.png";
 
 export class MagicMissile extends Skill {
+    static icon = icon;
+    static skillName = "Magic Missile"
+
     lastShot = 0;
     shootRate = 500;
 

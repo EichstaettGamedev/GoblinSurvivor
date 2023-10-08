@@ -9,6 +9,7 @@ import { GameOverScene } from './scenes/menu/gameOver';
 import { MainMenuScene } from './scenes/menu/mainMenu';
 import { GameWonScene } from './scenes/menu/gameWon';
 import { LoadingScreenScene } from './scenes/menu/loadingScreen';
+import { LevelUpScene } from './scenes/menu/levelUp';
 
 const main = () => {
     const config: Types.Core.GameConfig = {
@@ -45,6 +46,7 @@ const main = () => {
             UIScene,
             GameOverScene,
             GameWonScene,
+            LevelUpScene,
         ],
     };
     const game = new Game(config);

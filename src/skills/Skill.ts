@@ -1,8 +1,12 @@
 import type { Enemy } from "../entities/enemy";
 import type { Player } from "../entities/player";
 import type { GameScene } from "../scenes/game/gameScene";
+import icon from "../../assets/gfx/skill_icons/nil.png";
 
 export abstract class Skill {
+    static icon:string = icon;
+    static skillName = "Unnamed Skill";
+
     level = 1;
     maxLevel = 7;
 
