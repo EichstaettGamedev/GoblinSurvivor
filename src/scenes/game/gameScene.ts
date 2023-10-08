@@ -107,6 +107,15 @@ export class GameScene extends Scene {
         this.gameTime = 0;
     }
 
+    allPlayersDead():boolean {
+        for(const player of this.players){
+            if(!player.dead){
+                return false;
+            }
+        }
+        return true;
+    }
+
     checkForNewPlayers(time: number, delta: number) {
         for(const i of this.freeInputSchemes){
             if(i.checkJoin(time, delta)){
@@ -137,5 +146,8 @@ export class GameScene extends Scene {
         this.director.update(time, delta);
         this.checkForNewPlayers(time, delta);
         this.updateCameraPosition();
+        if((this.players.size > 0) && this.allPlayersDead()){
+            this.scene.switch("GameOverScene");
+        }
     }
 }
