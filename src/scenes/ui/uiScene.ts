@@ -4,6 +4,7 @@ import type { GameScene } from '../game/gameScene';
 export class UIScene extends Scene {
     health?: Phaser.GameObjects.Text;
     money?: Phaser.GameObjects.Text;
+    level?: Phaser.GameObjects.Text;
 
     constructor(config: Phaser.Types.Scenes.SettingsConfig) {
         if (!config) {
@@ -19,6 +20,9 @@ export class UIScene extends Scene {
 
         this.money = this.add.text(16, 40, '');
         this.money.setShadow(0, 0, '#000', 4, true, true);
+
+        this.level = this.add.text(16, 64, '');
+        this.level.setShadow(0, 0, '#000', 4, true, true);
     }
 
     update(time: number, delta: number) {
@@ -33,6 +37,10 @@ export class UIScene extends Scene {
         if (player && this.money) {
             this.money.setText(`Money: ${gs.score}`);
         }
+        if (player && this.level) {
+            this.level.setText(`Level: ${gs.playerLevel}`);
+        }
+
 
         if(!player){
             this.health?.setText("Press WASD / Cursor-keys or Click/Touch the screen to join");

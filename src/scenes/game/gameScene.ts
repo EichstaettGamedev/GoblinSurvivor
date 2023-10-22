@@ -57,6 +57,7 @@ export class GameScene extends Scene {
         this.players = new Set();
         this.freeInputSchemes = new Set();
         this.score = 0;
+        this.playerLevel = 0;
         this.sound.pauseOnBlur = false;
         this.cameraPosition = this.add.image(0,0,'packed','void');
 
@@ -121,11 +122,12 @@ export class GameScene extends Scene {
         if(this.players.size <= 0){
             return;
         }
-        const scoreNeeded = this.playerLevel * 10;
+        const scoreNeeded = (1+this.playerLevel) * 3
+        ;
         if(this.score >= scoreNeeded){
             if(!this.scene.isActive("LevelUp")){
-                this.scene.start("LevelUp");
-                this.scene.pause();
+                this.scene.get('LevelUp').scene.restart()
+                this.scene.switch("LevelUp");
             }
         }
     }

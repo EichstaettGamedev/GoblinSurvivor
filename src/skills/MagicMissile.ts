@@ -16,7 +16,8 @@ export class MagicMissile extends Skill {
 
     update(time: number, delta: number): void {
         const gs = this.player.scene as GameScene;
-        if (time > this.lastShot + this.shootRate) {
+        const shootRate = Math.max(100, this.shootRate - this.level * 100);
+        if (time > this.lastShot + shootRate) {
             const e = this.findClosestEnemy();
             if (e) {
                 this.lastShot = time;

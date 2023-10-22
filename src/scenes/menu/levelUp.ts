@@ -21,7 +21,7 @@ export class LevelUpScene extends Scene {
         const that = this;
         const gs = that.scene.get('GameScene') as GameScene;
         this.players = gs.players;
-        this.countDownLeft = 1000;
+        this.countDownLeft = 5000;
 
         const dom = document.createElement('div');
         dom.classList.add("level-up-wrap")
@@ -60,8 +60,7 @@ export class LevelUpScene extends Scene {
             this.counter.innerText = String(Math.round(this.countDownLeft / 100)/10);
         }
         if(this.countDownLeft < 0){
-            this.scene.resume("GameScene");
-            this.scene.stop();
+            this.scene.switch("GameScene");
 
             const gs = this.scene.get('GameScene') as GameScene;
             gs.playerLevel++;
