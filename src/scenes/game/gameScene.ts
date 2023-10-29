@@ -122,8 +122,7 @@ export class GameScene extends Scene {
         if(this.players.size <= 0){
             return;
         }
-        const scoreNeeded = (1+this.playerLevel) * 3
-        ;
+        const scoreNeeded = ((1+this.playerLevel) * (1+this.playerLevel)) * 5;
         if(this.score >= scoreNeeded){
             if(!this.scene.isActive("LevelUp")){
                 this.scene.get('LevelUp').scene.restart()
