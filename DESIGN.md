@@ -46,4 +46,20 @@ Ungezieferkönigin (Heimat der Pilze, Untergrund)
 -> Tausendfüßler
 
 
-Skills
+Aktive Skills
+
+* Magic Missile - langweilig, schiesst ein Projektil auf den naechsten Gegner
+* Dash - anfangs nur zum Ausweichen, nachher macht man gegnern Schaden, wird getriggert durch doppelklick ala MC
+* Blink - inkompatibel zu Dash, teleportiert in Richtung nach doppelklick, macht spaeter eine Nova am Ursprungsort
+* Inferno / Kamehameha - move skill, kann sich nicht bewegen waehrend der aufladung, dann fetter Strahl in gewaehlte Richtung und macht ordentlich schaden
+* Wurzeln die Gegner verlangsamen, AoE um Spieler herum, alle Gegner werden fuer kurze Zeit Langsamer, macht wenig Schaden
+* Skelett wiederbeleben
+* Chain lightning
+
+Passive Skills (Auren)
+
+* Cooldown reduktion
+* Lifesteal
+* Invulnerable (nur kurze Phasen)
+* Speed up
+* Range erhoehen

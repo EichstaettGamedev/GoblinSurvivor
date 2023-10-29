@@ -20,6 +20,7 @@
         "vite": "latest"
     },
     "dependencies": {
+        "lit": "^3.0.1",
         "phaser": "latest"
     }
 }
