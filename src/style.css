@@ -50,6 +50,16 @@ body {
 
 #phaser-parent .main-menu-text {
     text-align: center;
+    width: 100%;
+    max-width: 400px;
+    min-height: 200px;
+}
+
+#phaser-parent .main-menu-text img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
 }
 
 #phaser-parent .main-menu-text h1,
@@ -63,15 +73,11 @@ body {
 }
 
 #phaser-parent button {
-    border-top: solid 1px #70f357;
-    border-left: solid 1px #70f357;
-
-    border-right: solid 1px #16530a;
-    border-bottom: solid 1px #16530a;
-
+    border: none;
+    
     font-size: 18px;
-    border-radius: 2px;
-    background: #38a01b;
+    border-radius: 4px;
+    background: #8FB256;
     font-family: 'Courier New', Courier, monospace;
     color: #fff;
     text-shadow: -1px 0px 0px#000, 1px 0px 0px#000, 0px -1px 0px#000, 0px 1px 0px#000;
@@ -89,13 +95,7 @@ body {
 }
 
 #phaser-parent button.green-button {
-    border-top: solid 1px #70f357;
-    border-left: solid 1px #70f357;
-
-    border-right: solid 1px #16530a;
-    border-bottom: solid 1px #16530a;
-
-    background: #38a01b;
+    background: #3A614C;
 }
 
 #phaser-parent button.red-button {

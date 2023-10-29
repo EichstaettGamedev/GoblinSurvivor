@@ -1,9 +1,7 @@
 import options from '../../options';
 import { Scene } from 'phaser';
 
-const introHTML = `<h1>Vampire Survivors Clone</h1>
-<br/>
-<p>Probably needs a better title, but this has to suffice for now</p>`;
+const introHTML = `<img src="/assets/logo.svg" />`;
 
 const gitHubLink = 'https://github.com/EichstaettGamedev/GoblinSurvivor';
 const phaserLink = 'https://phaser.io/';
